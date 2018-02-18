@@ -31,25 +31,21 @@ var addNote = (title, body) => {
 };
 
 var getAll = () => {
-    console.log("getting all notes");
+    var notes = fetchNotes();
+    return notes;
 }
 
 var getNote = (title) =>{
-    console.log("getting note", title);
+    var notes = fetchNotes();
+    var filteredNotes = notes.filter((note) => note.title === title);
+    return filteredNotes[0];
 }
 
 var removeNote = (title) => {
     var notes = fetchNotes();
-    var note = {
-        title
-    };
-    var duplicateNotes = notes.filter((note) => note.title === title);
-
-    if (duplicateNotes.length === 0){
-        notes.pop(note);
-        saveNotes(notes);
-        return note;
-    }   
+    var filteredNotes = notes.filter((note) => note.title !== title);
+    saveNotes(filteredNotes);
+    return notes.length !== filteredNotes.length;
 };
 
 module.exports = {
@@ -58,3 +54,4 @@ module.exports = {
     getNote,
     removeNote
 };
+
